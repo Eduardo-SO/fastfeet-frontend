@@ -1,17 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { MdCreate, MdDeleteForever } from 'react-icons/md';
 
 import { Container, Header } from './styles';
-import { Table, Actions, ActionsList } from '~/components/Table/styles';
+import Table from '~/components/Table';
+import Actions from '~/components/Actions';
 
 export default function Problems() {
-    const [actionsVisible, setActionsVisible] = useState(false);
-
-    function handleActionsVisibility() {
-        setActionsVisible(!actionsVisible);
-
-        return actionsVisible;
-    }
     return (
         <Container>
             <Header>
@@ -33,25 +27,14 @@ export default function Problems() {
                         <td>John Doe</td>
                         <td>example@rocketseat.com.br</td>
                         <Actions>
-                            <button
-                                type="button"
-                                onClick={handleActionsVisibility}
-                            >
-                                • • •
-                            </button>
-                            <ActionsList visible={actionsVisible}>
-                                <li>
-                                    <MdCreate color="#4D85EE" size={16} />
-                                    Editar
-                                </li>
-                                <li>
-                                    <MdDeleteForever
-                                        color="#DE3B3B"
-                                        size={16}
-                                    />
-                                    Excluir
-                                </li>
-                            </ActionsList>
+                            <li>
+                                <MdCreate color="#4D85EE" size={16} />
+                                Editar
+                            </li>
+                            <li>
+                                <MdDeleteForever color="#DE3B3B" size={16} />
+                                Excluir
+                            </li>
                         </Actions>
                     </tr>
                 </tbody>

@@ -1,17 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { MdAdd, MdSearch, MdCreate, MdDeleteForever } from 'react-icons/md';
 
+import api from '~/services/api';
+
 import { Container, Header, InputContainer } from './styles';
-import { Table, Actions, ActionsList } from '~/components/Table/styles';
+import Table from '~/components/Table';
+import Actions from '~/components/Actions';
 
 export default function Deliverymen() {
-    const [actionsVisible, setActionsVisible] = useState(false);
+    const [deliverymen, setDeliverymen] = useState([]);
 
-    function handleActionsVisibility() {
-        setActionsVisible(!actionsVisible);
+    useEffect(() => {
+        async function loadDeliverymen() {
+            const response = await api.get('deliveryman');
+            setDeliverymen(response.data);
+        }
 
-        return actionsVisible;
-    }
+        loadDeliverymen();
+    }, []);
+
     return (
         <Container>
             <Header>
@@ -39,19 +46,13 @@ export default function Deliverymen() {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>#01</td>
-                        <td>__JD__</td>
-                        <td>John Doe</td>
-                        <td>example@rocketseat.com.br</td>
-                        <Actions>
-                            <button
-                                type="button"
-                                onClick={handleActionsVisibility}
-                            >
-                                • • •
-                            </button>
-                            <ActionsList visible={actionsVisible}>
+                    {deliverymen.map(deliveryman => (
+                        <tr key={deliveryman.id}>
+                            <td>{deliveryman.id}</td>
+                            <td>__JD__</td>
+                            <td>{deliveryman.name}</td>
+                            <td>{deliveryman.email}</td>
+                            <Actions>
                                 <li>
                                     <MdCreate color="#4D85EE" size={16} />
                                     Editar
@@ -63,9 +64,9 @@ export default function Deliverymen() {
                                     />
                                     Excluir
                                 </li>
-                            </ActionsList>
-                        </Actions>
-                    </tr>
+                            </Actions>
+                        </tr>
+                    ))}
                 </tbody>
             </Table>
         </Container>
