@@ -56,6 +56,7 @@ export const ActionsList = styled.ul`
     li {
         display: flex;
         align-items: center;
+        white-space: nowrap;
 
         width: 100%;
         padding: 10px 0;
