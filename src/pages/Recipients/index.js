@@ -1,13 +1,30 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { MdAdd, MdSearch, MdCreate, MdDeleteForever } from 'react-icons/md';
 
-// import api from '~/services/api';
+import api from '~/services/api';
 
 import { Container, Header, InputContainer } from './styles';
 import Table from '~/components/Table';
 import Actions from '~/components/Actions';
 
 export default function Recipients() {
+    const [recipients, setRecipients] = useState([]);
+
+    useEffect(() => {
+        async function loadRecipients() {
+            const response = await api.get('recipients');
+            setRecipients(response.data);
+        }
+
+        loadRecipients();
+    }, []);
+
+    async function handleDelete(id) {
+        await api.delete(`recipients/${id}`);
+
+        setRecipients(recipients.filter(recipient => recipient.id !== id));
+    }
+
     return (
         <Container>
             <Header>
@@ -34,21 +51,36 @@ export default function Recipients() {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>#01</td>
-                        <td>Ludwig Van Chopin</td>
-                        <td>Rua Beethoven, 1729, Diadema - São Paulo</td>
-                        <Actions>
-                            <li>
-                                <MdCreate color="#4D85EE" size={16} />
-                                Editar
-                            </li>
-                            <li>
-                                <MdDeleteForever color="#DE3B3B" size={16} />
-                                Excluir
-                            </li>
-                        </Actions>
-                    </tr>
+                    {recipients.map(recipient => (
+                        <tr>
+                            <td>{recipient.id}</td>
+                            <td>{recipient.name}</td>
+                            <td>
+                                {recipient.street}, {recipient.number},{' '}
+                                {recipient.city} - {recipient.state}
+                            </td>
+                            <Actions>
+                                <li>
+                                    <MdCreate color="#4D85EE" size={16} />
+                                    Editar
+                                </li>
+                                <li>
+                                    <button
+                                        type="button"
+                                        onClick={() =>
+                                            handleDelete(recipient.id)
+                                        }
+                                    >
+                                        <MdDeleteForever
+                                            color="#DE3B3B"
+                                            size={16}
+                                        />
+                                        Excluir
+                                    </button>
+                                </li>
+                            </Actions>
+                        </tr>
+                    ))}
                 </tbody>
             </Table>
         </Container>
