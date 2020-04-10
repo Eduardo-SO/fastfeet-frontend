@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-modal';
 
-const customStyles = {
+import { Container } from './styles';
+
+const modalStyles = {
     content: {
         top: '50%',
         left: '50%',
@@ -11,17 +13,15 @@ const customStyles = {
         marginRight: '-50%',
         transform: 'translate(-50%, -50%)',
 
-        width: '400px',
+        width: '450px',
     },
     overlay: {
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        background: 'black',
+        zIndex: 2,
+        background: 'rgba(0, 0, 0, 0.7)',
     },
 };
 
-export default function CustomModal({ children, delivery }) {
+export default function CustomModal({ children, problem }) {
     const [modalIsOpen, setIsOpen] = useState(false);
 
     useEffect(() => {
@@ -44,21 +44,15 @@ export default function CustomModal({ children, delivery }) {
             <Modal
                 isOpen={modalIsOpen}
                 onRequestClose={closeModal}
-                style={customStyles}
+                style={modalStyles}
                 contentLabel="Example Modal"
             >
-                <h2>{delivery.product}</h2>
-                <button type="button" onClick={closeModal}>
-                    close
-                </button>
-                <div>I am a modal</div>
-                <form>
-                    <input />
-                    <button type="button">tab navigation</button>
-                    <button type="button">stays</button>
-                    <button type="button">inside</button>
-                    <button type="button">the modal</button>
-                </form>
+                <Container>
+                    <div>
+                        <h3>VISUALIZAR PROBLEMA</h3>
+                        <p>{problem.description}</p>
+                    </div>
+                </Container>
             </Modal>
         </>
     );
@@ -66,7 +60,5 @@ export default function CustomModal({ children, delivery }) {
 
 CustomModal.propTypes = {
     children: PropTypes.node.isRequired,
-    delivery: PropTypes.shape({
-        product: PropTypes.string,
-    }).isRequired,
+    problem: PropTypes.shape({ description: PropTypes.string }).isRequired,
 };
