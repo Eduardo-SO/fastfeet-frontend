@@ -29,7 +29,8 @@ export const ActionsList = styled.ul`
     position: absolute;
     z-index: 1;
     display: none;
-    width: 150px;
+    min-width: 150px;
+    width: fit-content;
     top: calc(100% - 10px);
     left: calc(50% - 75px);
     padding: 15px;
