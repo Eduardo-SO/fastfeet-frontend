@@ -23,6 +23,13 @@ export const Table = styled.table`
             background-color: #fff;
             border-radius: 4px;
 
+            td.big-text {
+                max-width: 600px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+
             td {
                 padding: 14px 15px;
 
