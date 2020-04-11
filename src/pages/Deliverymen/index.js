@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { MdAdd, MdSearch, MdCreate, MdDeleteForever } from 'react-icons/md';
 
 import api from '~/services/api';
@@ -28,10 +29,10 @@ export default function Deliverymen() {
                         <MdSearch size={23} />
                         <input placeholder="Buscar por Entregadores" />
                     </InputContainer>
-                    <button type="button">
+                    <Link to="/deliverymen/register">
                         <MdAdd size={26} />
                         CADASTRAR
-                    </button>
+                    </Link>
                 </nav>
             </Header>
 

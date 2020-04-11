@@ -39,10 +39,10 @@ export default function Deliveries() {
                         <MdSearch size={23} />
                         <input placeholder="Buscar por encomendas" />
                     </InputContainer>
-                    <button type="button">
+                    <Link to="/deliveries/register">
                         <MdAdd size={26} />
                         CADASTRAR
-                    </button>
+                    </Link>
                 </nav>
             </Header>
 

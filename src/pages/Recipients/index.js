@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { MdAdd, MdSearch, MdCreate, MdDeleteForever } from 'react-icons/md';
+import { Link } from 'react-router-dom';
 
 import api from '~/services/api';
-
 import { Container, Header, InputContainer } from './styles';
 import Table from '~/components/Table';
 import Actions from '~/components/Actions';
@@ -34,10 +34,10 @@ export default function Recipients() {
                         <MdSearch size={23} />
                         <input placeholder="Buscar por Destinatários" />
                     </InputContainer>
-                    <button type="button">
+                    <Link to="/recipients/register">
                         <MdAdd size={26} />
                         CADASTRAR
-                    </button>
+                    </Link>
                 </nav>
             </Header>
 

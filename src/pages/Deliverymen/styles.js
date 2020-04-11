@@ -15,7 +15,7 @@ export const Header = styled.div`
         display: flex;
         justify-content: space-between;
 
-        button {
+        a {
             height: 36px;
             border: none;
             border-radius: 4px;
